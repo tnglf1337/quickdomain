@@ -5,14 +5,20 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utility class for reading CSV files containing domain entity data.
+ *
+ * @since 1.0.0
+ * @author Timo Neske
+ */
 public class CsvReader {
     /**
      * Read a csv-file with the content for the domain entities.
      * Each line of the file must have this format
-     * <p><code>fieldidentifier,val1,val2,val3,...</code></p>
-     * followed by all other fieldidentifier of the entitiy.
-     * @param filePath
-     * @return
+     * <p><code>field identifier,val1,val2,val3,...</code></p>
+     * followed by all other field identifier of the entity.
+     * @param filePath the path to the csv file
+     * @return the content of the csv file as a single string, with each line separated by a newline character
      */
     public static String readCsvContent(Path filePath) {
 
