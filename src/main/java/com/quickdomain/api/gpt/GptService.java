@@ -14,14 +14,25 @@ public class GptService {
 
     private GptStrategy strategy;
 
+    /**
+     *
+     * @see GptStrategy#postPrompt(String)
+     */
     public Map<String, List<String>> postPrompt(String prompt){
         return strategy.postPrompt(prompt);
     }
 
+    /**
+     * Sets the strategy to be used for interacting with the GPT provider.
+     * @param strategy is the strategy to be set.
+     */
     public void setStrategy(GptStrategy strategy) {
         this.strategy = strategy;
     }
 
+    /**
+     * @see GptStrategy#setApiKey(String)
+     */
     public void setApiKey(String apiKey) {
         if(strategy != null) {
             this.strategy.setApiKey(apiKey);
@@ -37,7 +48,7 @@ public class GptService {
     }
 
     /**
-     * @see GptStrategy
+     * @see GptStrategy#hasApiKey()
      */
     public boolean noApiKeySet() {
         return strategy.hasApiKey();
