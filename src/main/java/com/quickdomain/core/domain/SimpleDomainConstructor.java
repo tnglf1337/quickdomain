@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A simple domain constructor that creates instances of a given domain class
+ * @param <T> the type of the domain class to construct.
+ * @author Timo Neske
+ */
 public class SimpleDomainConstructor<T> {
 
     private final Class<T> domainClass;
@@ -19,6 +24,13 @@ public class SimpleDomainConstructor<T> {
         this.contentMap = contentMap;
     }
 
+    /**
+     * Constructs a list of domain entities based on the provided content map.
+     * Each entry in the content map corresponds to a field in the domain class.
+     * The values in the content map are used to instantiate the domain class.
+     *
+     * @return a list of constructed domain entities.
+     */
     public List<T> constructSimple(){
         List<T> domainEntities = new ArrayList<>();
         Class<?>[] paramTypes = getDomainFieldTypes();
@@ -54,14 +66,17 @@ public class SimpleDomainConstructor<T> {
         return domainEntities;
     }
 
+    /**
+     * Retrieves the types of the fields declared in the domain class.
+     * This is used to determine the parameter types for the constructor.
+     *
+     * @return an array of Class objects representing the types of the fields in the domain class.
+     */
     public Class<?>[] getDomainFieldTypes() {
         Class<?>[] types = new Class<?>[domainClass.getDeclaredFields().length];
-
         Field[] domainFields = domainClass.getDeclaredFields();
 
-        for (int i = 0; i < domainFields.length; i++) {
-            types[i] = domainFields[i].getType();
-        }
+        for (int i = 0; i < domainFields.length; i++) types[i] = domainFields[i].getType();
 
         return types;
     }
