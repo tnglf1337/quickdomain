@@ -5,7 +5,17 @@ import com.quickdomain.exception.InvalidResponseContentException;
 import java.util.*;
 import static com.quickdomain.api.gpt.GptResponseFormatValidator.*;
 
+/**
+ * Manages the mapping of the response content from the GPT providers.
+ */
 public class GptResponseMapper {
+
+    /**
+     * Maps the response content to a <code>Map</code> with field identifiers as keys and lists of values as field values.
+     * @param domainContent is the response content from the GPT provider.
+     * @return a <code>Map</code> with field identifiers as keys and lists of values as values.
+     * @throws InvalidResponseContentException if the content is not in the desired format.
+     */
     public static Map<String, List<String>> map(String domainContent) {
         Map<String, List<String>> map = new LinkedHashMap<>();
         String[] lines = domainContent.split("\n");
