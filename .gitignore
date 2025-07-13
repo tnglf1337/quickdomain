@@ -1,0 +1,5 @@
+/.idea
+/target
+/src/main/java/com/quickdomain/Main.java
+/src/main/java/com/quickdomain/dummies
+.env
