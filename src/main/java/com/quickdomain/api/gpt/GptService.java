@@ -15,7 +15,6 @@ public class GptService {
     private GptStrategy strategy;
 
     /**
-     *
      * @see GptStrategy#postPrompt(String)
      */
     public Map<String, List<String>> postPrompt(String prompt){
