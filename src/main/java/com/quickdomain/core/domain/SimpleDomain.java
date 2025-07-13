@@ -45,14 +45,14 @@ public class SimpleDomain<T> implements Domain<T> {
     public List<T> generate(){
         String prompt = new SimpleDomainPrompt().withMeta(getDomainFields(), Locale.GERMANY, numberOfEntities).build();
         Map<String, List<String>> gptResponse = gptService.postPrompt(prompt);
-        DomainConstructor<T> constructor = new DomainConstructor<>(domainClass, numberOfEntities, gptResponse);
+        SimpleDomainConstructor<T> constructor = new SimpleDomainConstructor<>(domainClass, numberOfEntities, gptResponse);
         return constructor.constructSimple();
     }
 
     @Override
     public List<T> generate(String content) {
         Map<String, List<String>> contentMap = GptResponseMapper.map(content);
-        DomainConstructor<T> constructor = new DomainConstructor<>(domainClass, numberOfEntities, contentMap);
+        SimpleDomainConstructor<T> constructor = new SimpleDomainConstructor<>(domainClass, numberOfEntities, contentMap);
         return constructor.constructSimple();
     }
 
@@ -60,7 +60,7 @@ public class SimpleDomain<T> implements Domain<T> {
     public List<T> generate(Path filePath) {
         String content = CsvReader.readCsvContent(filePath);
         Map<String, List<String>> contentMap = GptResponseMapper.map(content);
-        DomainConstructor<T> constructor = new DomainConstructor<>(domainClass, numberOfEntities, contentMap);
+        SimpleDomainConstructor<T> constructor = new SimpleDomainConstructor<>(domainClass, numberOfEntities, contentMap);
         return constructor.constructSimple();
     }
 

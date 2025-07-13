@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class DomainConstructor<T> {
+public class SimpleDomainConstructor<T> {
 
     private final Class<T> domainClass;
     private final int numberOfEntities;
     private final Map<String, List<String>> contentMap;
 
-    public DomainConstructor(Class<T> domainClass, int numberOfEntities, Map<String, List<String>> contentMap) {
+    public SimpleDomainConstructor(Class<T> domainClass, int numberOfEntities, Map<String, List<String>> contentMap) {
         this.domainClass = domainClass;
         this.numberOfEntities = numberOfEntities;
         this.contentMap = contentMap;
