@@ -25,20 +25,24 @@ public class OpenAiStrategy implements GptStrategy, GptStrategyFactory {
      * @see GptStrategy
      */
     @Override
-    public Map<String, List<String>> postPrompt(String p) throws IOException, InterruptedException {
+    public Map<String, List<String>> postPrompt(String p){
         String requestBody = configuredRequestBody(p);
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(ProviderReader.loadApi("open-ai")))
-                .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + apiKey)
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                .build();
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(ProviderReader.loadApi("open-ai")))
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", "Bearer " + apiKey)
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        String domainContent = getDomainContent(response);
-        return GptResponseMapper.map(domainContent);
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            String domainContent = getDomainContent(response);
+            return GptResponseMapper.map(domainContent);
+        } catch (IOException | InterruptedException | IllegalArgumentException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     /**

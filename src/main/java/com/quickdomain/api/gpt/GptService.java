@@ -14,7 +14,7 @@ public class GptService {
 
     private GptStrategy strategy;
 
-    public Map<String, List<String>> postPrompt(String prompt) throws IOException, InterruptedException {
+    public Map<String, List<String>> postPrompt(String prompt){
         return strategy.postPrompt(prompt);
     }
 

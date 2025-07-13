@@ -22,10 +22,8 @@ public interface GptStrategy {
      *
      * @param p the prompt to send
      * @return a map where keys represent class variable identifiers and the items are the generated values.
-     * @throws IOException          if a network communication error occurs
-     * @throws InterruptedException if the request is interrupted
      */
-    Map<String, List<String>> postPrompt(String p) throws IOException, InterruptedException;
+    Map<String, List<String>> postPrompt(String p);
 
     /**
      * Sets the API key used to authenticate requests to the GPT provider.

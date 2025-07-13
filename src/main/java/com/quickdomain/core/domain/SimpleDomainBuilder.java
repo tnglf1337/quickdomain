@@ -4,9 +4,6 @@ import com.quickdomain.api.gpt.GptProvider;
 import com.quickdomain.api.gpt.GptStrategyFactory;
 import com.quickdomain.api.gpt.OpenAiStrategy;
 import com.quickdomain.exception.DomainBuildException;
-
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class SimpleDomainBuilder<T> {
@@ -35,7 +32,7 @@ public class SimpleDomainBuilder<T> {
         return this;
     }
 
-    public List<T> generate() throws IOException, InterruptedException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public List<T> generate() {
         validBuild();
         return simpleDomain.generate();
     }

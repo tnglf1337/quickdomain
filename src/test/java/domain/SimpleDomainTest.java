@@ -6,10 +6,7 @@ import com.quickdomain.core.domain.SimpleDomainBuilder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.*;
-
-import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -22,7 +19,7 @@ import static org.mockito.Mockito.*;
 public class SimpleDomainTest {
     @Test
     @DisplayName("Aus einer Domain, die nur aus Wrapper-Klassen betsteht, wird erfolgreich die Dummy-Domain generiert")
-    void test1() throws IOException, InterruptedException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    void test1(){
         List<FullDummyWrapperEntity> expected = EntityMother.getFullDummyWrapperEntities();
 
         Map<String, List<String>> stubMap = new LinkedHashMap<>();
@@ -49,7 +46,7 @@ public class SimpleDomainTest {
 
     @Test
     @DisplayName("Aus einer Domain, die nur aus primitiven Datentypen betsteht, wird erfolgreich die Dummy-Domain generiert")
-    void test2() throws IOException, InterruptedException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    void test2(){
         List<FullDummyPrimitiveEntitiy> expected = EntityMother.getFullDummyPrimitiveEntities();
 
         Map<String, List<String>> stubMap = new LinkedHashMap<>();
@@ -76,7 +73,7 @@ public class SimpleDomainTest {
 
     @Test
     @DisplayName("Aus einer Domain, die nur gemischten Datentypen betsteht, wird erfolgreich die Dummy-Domain generiert")
-    void test3() throws IOException, InterruptedException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    void test3() {
         List<FullDummyMixedEntity> expected = EntityMother.getFullDummyMixedEntities();
 
         Map<String, List<String>> stubMap = new LinkedHashMap<>();
@@ -99,7 +96,7 @@ public class SimpleDomainTest {
 
     @Test
     @DisplayName("Eine SimpleDomain kann direkt aus einem content-String konstruiert werden")
-    void test4() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    void test4()  {
         String content = "username,user1,user2\nemail,user1@example.com,user2@example.com\nage,20,30";
 
         List<User> actual = new SimpleDomain<>(User.class, 2).generate(content);
@@ -109,7 +106,7 @@ public class SimpleDomainTest {
 
     @Test
     @DisplayName("Eine SimpleDomain wird aus dem Inhalt einer Csv-Datei konstruiert")
-    void test5() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    void test5() {
         Path filePath = Path.of("src/test/resources/dummy-content.csv");
         List<User> actual = new SimpleDomain<>(User.class, 2).generate(filePath);
 

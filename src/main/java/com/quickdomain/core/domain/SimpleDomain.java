@@ -6,10 +6,7 @@ import com.quickdomain.api.gpt.GptStrategy;
 import com.quickdomain.api.gpt.OpenAiStrategy;
 import com.quickdomain.prompt.SimpleDomainPrompt;
 import com.quickdomain.util.CsvReader;
-
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
@@ -43,13 +40,9 @@ public class SimpleDomain<T> implements Domain<T> {
     /**
      * Initialize the dummy domain based on the prompt and numberOfEntities passed before.
      * @return List with generated entitities of type T
-     * @throws NoSuchMethodException
-     * @throws InvocationTargetException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
      */
     @Override
-    public List<T> generate() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException, InterruptedException {
+    public List<T> generate(){
         String prompt = new SimpleDomainPrompt().withMeta(getDomainFields(), Locale.GERMANY, numberOfEntities).build();
         Map<String, List<String>> gptResponse = gptService.postPrompt(prompt);
         DomainConstructor<T> constructor = new DomainConstructor<>(domainClass, numberOfEntities, gptResponse);
@@ -57,14 +50,14 @@ public class SimpleDomain<T> implements Domain<T> {
     }
 
     @Override
-    public List<T> generate(String content) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public List<T> generate(String content) {
         Map<String, List<String>> contentMap = GptResponseMapper.map(content);
         DomainConstructor<T> constructor = new DomainConstructor<>(domainClass, numberOfEntities, contentMap);
         return constructor.constructSimple();
     }
 
     @Override
-    public List<T> generate(Path filePath) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public List<T> generate(Path filePath) {
         String content = CsvReader.readCsvContent(filePath);
         Map<String, List<String>> contentMap = GptResponseMapper.map(content);
         DomainConstructor<T> constructor = new DomainConstructor<>(domainClass, numberOfEntities, contentMap);

@@ -19,7 +19,7 @@ public class DomainConstructor<T> {
         this.contentMap = contentMap;
     }
 
-    public List<T> constructSimple() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public List<T> constructSimple(){
         List<T> domainEntities = new ArrayList<>();
         Class<?>[] paramTypes = getDomainFieldTypes();
         for (int i = 0; i < numberOfEntities; i++) {
@@ -33,9 +33,23 @@ public class DomainConstructor<T> {
                 j++;
             }
 
-            Constructor<T> constructor = domainClass.getConstructor(paramTypes);
-            T entity = constructor.newInstance(constructorArgs.toArray());
-            domainEntities.add(entity);
+            try {
+                Constructor<T> constructor = domainClass.getConstructor(paramTypes);
+                T entity = constructor.newInstance(constructorArgs.toArray());
+                domainEntities.add(entity);
+            } catch (NoSuchMethodException e) {
+                System.out.println("No matching constructor not found for class: " + domainClass.getName());
+                System.out.println(e.getMessage());
+            } catch (IllegalAccessException e) {
+                System.out.println("Illegal access while trying to instantiate class: " + domainClass.getName());
+                System.out.println(e.getMessage());
+            } catch (InstantiationException e) {
+                System.out.println("Failed to instantiate class: " + domainClass.getName());
+                System.out.println(e.getMessage());
+            } catch (InvocationTargetException e) {
+                System.out.println("Invocation target exception while trying to instantiate class: " + domainClass.getName());
+                System.out.println(e.getMessage());
+            }
         }
         return domainEntities;
     }
